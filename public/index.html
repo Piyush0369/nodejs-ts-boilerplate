@@ -26,27 +26,87 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       color: #fff;
     }
-    .container {
-      text-align: center;
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0,0,0,0.2);
+    }
+    nav .logo { font-size: 1.25rem; font-weight: bold; }
+    nav .nav-links { display: flex; gap: 1rem; }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background 0.3s;
+      font-size: 0.95rem;
+    }
+    nav a:hover, nav a.active { background: rgba(255,255,255,0.2); }
+    .page {
+      display: none;
+      max-width: 800px;
+      margin: 3rem auto;
       padding: 2rem;
     }
-    h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-    p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
-    .links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    a {
+    .page.active { display: block; }
+    .page h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .page h2 { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .page p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 1.5rem; line-height: 1.6; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .card {
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 1.5rem;
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .card h3 { margin-bottom: 0.5rem; }
+    .card p { font-size: 0.95rem; opacity: 0.85; margin-bottom: 0; }
+    .btn {
+      display: inline-block;
       color: #fff;
       text-decoration: none;
       padding: 0.75rem 1.5rem;
       border: 2px solid #fff;
       border-radius: 8px;
       transition: all 0.3s;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      background: transparent;
+      font-size: 1rem;
     }
-    a:hover { background: #fff; color: #667eea; }
+    .btn:hover { background: #fff; color: #667eea; }
+    .status-box {
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+    }
+    .contact-form { max-width: 400px; }
+    .contact-form label { display: block; margin-bottom: 0.25rem; font-size: 0.95rem; }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      outline: none;
+      font-family: inherit;
+    }
+    .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,255,255,0.5); }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: #fff; }
     .offline-indicator {
       position: fixed;
       bottom: 1rem;
@@ -62,19 +122,238 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🚀 Node.js TypeScript Boilerplate</h1>
-    <p>Your backend is running successfully!</p>
-    <div class="links">
-      <a href="/api">API Info</a>
-      <a href="/health">Health Check</a>
+  <!-- Navigation -->
+  <nav>
+    <span class="logo">🚀 Node.js App</span>
+    <div class="nav-links">
+      <a href="/" data-route="/" class="active">Home</a>
+      <a href="/about" data-route="/about">About</a>
+      <a href="/services" data-route="/services">Services</a>
+      <a href="/dashboard" data-route="/dashboard">Dashboard</a>
+      <a href="/contact" data-route="/contact">Contact</a>
     </div>
+  </nav>
+
+  <!-- Home Page -->
+  <div class="page active" id="page-home">
+    <h1>🚀 Node.js TypeScript Boilerplate</h1>
+    <p>Your backend is running successfully! This is a Progressive Web App with client-side routing.</p>
+    <div class="links" style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="/api" class="btn">API Info</a>
+      <a href="/health" class="btn">Health Check</a>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>⚡ Express.js</h3>
+        <p>Fast, unopinionated web framework</p>
+      </div>
+      <div class="card">
+        <h3>📘 TypeScript</h3>
+        <p>Type-safe JavaScript with strict mode</p>
+      </div>
+      <div class="card">
+        <h3>🗃️ Prisma ORM</h3>
+        <p>Next-generation database toolkit</p>
+      </div>
+      <div class="card">
+        <h3>📱 PWA</h3>
+        <p>Installable with offline support</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Page -->
+  <div class="page" id="page-about">
+    <h1>About</h1>
+    <p>This is a production-ready Node.js backend boilerplate built with TypeScript and Prisma ORM. It follows best practices for project structure, error handling, and developer experience.</p>
+    <h2>Tech Stack</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Runtime</h3>
+        <p>Node.js 18+</p>
+      </div>
+      <div class="card">
+        <h3>Language</h3>
+        <p>TypeScript (Strict)</p>
+      </div>
+      <div class="card">
+        <h3>Framework</h3>
+        <p>Express.js v5</p>
+      </div>
+      <div class="card">
+        <h3>Database</h3>
+        <p>MySQL + Prisma ORM</p>
+      </div>
+      <div class="card">
+        <h3>Security</h3>
+        <p>Helmet + CORS</p>
+      </div>
+      <div class="card">
+        <h3>Dev Tools</h3>
+        <p>Nodemon + ts-node</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services Page -->
+  <div class="page" id="page-services">
+    <h1>Services</h1>
+    <p>Explore the features and capabilities of this boilerplate.</p>
+    <div class="card-grid">
+      <div class="card">
+        <h3>🔐 Authentication</h3>
+        <p>JWT-based auth middleware ready to extend</p>
+      </div>
+      <div class="card">
+        <h3>📊 REST API</h3>
+        <p>Full CRUD endpoints with layered architecture</p>
+      </div>
+      <div class="card">
+        <h3>🛡️ Error Handling</h3>
+        <p>Global error handler with async wrapper</p>
+      </div>
+      <div class="card">
+        <h3>🗄️ Database</h3>
+        <p>Prisma ORM with migrations and seeding</p>
+      </div>
+      <div class="card">
+        <h3>📱 PWA</h3>
+        <p>Offline-first with service worker caching</p>
+      </div>
+      <div class="card">
+        <h3>🔄 Hot Reload</h3>
+        <p>Instant dev feedback with Nodemon</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Page -->
+  <div class="page" id="page-dashboard">
+    <h1>Dashboard</h1>
+    <p>Quick overview of your API status.</p>
+    <button class="btn" onclick="fetchHealth()">Check Health</button>
+    <button class="btn" onclick="fetchUsers()">Fetch Users</button>
+    <button class="btn" onclick="fetchApiInfo()">API Info</button>
+    <div class="status-box" id="dashboardOutput">Click a button above to fetch data...</div>
+  </div>
+
+  <!-- Contact Page -->
+  <div class="page" id="page-contact">
+    <h1>Contact</h1>
+    <p>This is a sample contact form to demonstrate frontend routing.</p>
+    <form class="contact-form" onsubmit="handleContact(event)">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Your name" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" required />
+      <label for="message">Message</label>
+      <textarea id="message" rows="4" placeholder="Your message..." required></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+    <div class="status-box" id="contactOutput" style="display:none;"></div>
   </div>
   
   <div class="offline-indicator" id="offlineIndicator">You are offline</div>
 
   <script>
-    // Register Service Worker
+    // --- Client-side Router ---
+    const routes = {
+      '/': 'page-home',
+      '/about': 'page-about',
+      '/services': 'page-services',
+      '/dashboard': 'page-dashboard',
+      '/contact': 'page-contact',
+    };
+
+    function navigateTo(path) {
+      history.pushState(null, '', path);
+      renderRoute(path);
+    }
+
+    function renderRoute(path) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+      // Show matched page or fallback to home
+      const pageId = routes[path] || 'page-home';
+      const page = document.getElementById(pageId);
+      if (page) page.classList.add('active');
+
+      // Update nav active state
+      document.querySelectorAll('nav a[data-route]').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('data-route') === path);
+      });
+
+      // Update document title
+      const titles = { '/': 'Home', '/about': 'About', '/services': 'Services', '/dashboard': 'Dashboard', '/contact': 'Contact' };
+      document.title = `${titles[path] || 'Home'} | Node.js App`;
+    }
+
+    // Intercept nav link clicks
+    document.querySelectorAll('nav a[data-route]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateTo(link.getAttribute('data-route'));
+      });
+    });
+
+    // Handle browser back/forward
+    window.addEventListener('popstate', () => {
+      renderRoute(window.location.pathname);
+    });
+
+    // Render initial route
+    renderRoute(window.location.pathname);
+
+    // --- Dashboard functions ---
+    async function fetchHealth() {
+      const output = document.getElementById('dashboardOutput');
+      output.textContent = 'Fetching health status...';
+      try {
+        const res = await fetch('/health');
+        const data = await res.json();
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        output.textContent = 'Error: ' + err.message;
+      }
+    }
+
+    async function fetchUsers() {
+      const output = document.getElementById('dashboardOutput');
+      output.textContent = 'Fetching users...';
+      try {
+        const res = await fetch('/api/users');
+        const data = await res.json();
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        output.textContent = 'Error: ' + err.message;
+      }
+    }
+
+    async function fetchApiInfo() {
+      const output = document.getElementById('dashboardOutput');
+      output.textContent = 'Fetching API info...';
+      try {
+        const res = await fetch('/api');
+        const data = await res.json();
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        output.textContent = 'Error: ' + err.message;
+      }
+    }
+
+    function handleContact(e) {
+      e.preventDefault();
+      const output = document.getElementById('contactOutput');
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      output.style.display = 'block';
+      output.textContent = `Message received!\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
+      e.target.reset();
+    }
+
+    // --- Service Worker ---
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
