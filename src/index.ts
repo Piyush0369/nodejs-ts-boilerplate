@@ -15,7 +15,10 @@ const app: Express = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  hsts: false,                  // Disable HSTS - prevents forcing HTTPS on HTTP-only servers
+  contentSecurityPolicy: false, // Disable CSP for development flexibility
+}));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +35,7 @@ app.get('/health', (req, res) => {
 });
 
 // Serve index.html for frontend routing (SPA fallback)
-app.get('*', (req, res, next) => {
+app.get('/{path}', (req, res, next) => {
   // Skip API routes and health check
   if (req.path.startsWith('/api') || req.path === '/health') {
     return next();
